@@ -7,8 +7,23 @@ import {
   useRouteData
 } from "@solidjs/router";
 import { createResource, createSignal, For, Show, Suspense } from "solid-js";
+import { client } from "../../utils/trpc";
 
 const [block, setBlock] = createSignal(false);
+const delay = () => new Promise(resolve => setTimeout(resolve, 1000));
+
+const NestedComponent = () => {
+  const [example] = createResource(async () => {
+    await delay();
+    return client.example.query();
+  });
+
+  return (
+    <Suspense fallback={<p>Loading Nested Fetch...</p>}>
+      <p>Data fetched from server using Solid Query {example()}</p>
+    </Suspense>
+  );
+};
 
 const AppRoute = () => {
   const [data] = useRouteData<typeof fetchRouteData>();
@@ -42,6 +57,7 @@ const Counter = () => {
         <A class='underline' href='/'>
           Return home
         </A>
+        <NestedComponent />
       </div>
     </>
   );
@@ -49,7 +65,7 @@ const Counter = () => {
 
 const fetchRouteData = () =>
   createResource(async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await delay();
     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
     return (await res.json()) as { id: number; title: string }[];
   });
