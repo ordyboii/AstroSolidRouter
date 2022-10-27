@@ -6,7 +6,14 @@ import {
   useIsRouting,
   useRouteData
 } from "@solidjs/router";
-import { createResource, createSignal, For, Show, Suspense } from "solid-js";
+import {
+  createResource,
+  createSignal,
+  ErrorBoundary,
+  For,
+  Show,
+  Suspense
+} from "solid-js";
 import { client } from "utils/trpc";
 
 const [block, setBlock] = createSignal(false);
@@ -25,6 +32,23 @@ const NestedComponent = () => {
   );
 };
 
+const protectedRouteData = () =>
+  createResource(async () => {
+    await client.me.query();
+    return { protected: "jake" };
+  });
+
+const Protected = () => {
+  const [data] = useRouteData<typeof protectedRouteData>();
+  return (
+    <Suspense fallback={<p>Authorizing...</p>}>
+      <ErrorBoundary fallback={err => err.message}>
+        <p>This is protected content, {data()?.protected}</p>
+      </ErrorBoundary>
+    </Suspense>
+  );
+};
+
 const AppRoute = () => {
   const [data] = useRouteData<typeof fetchRouteData>();
 
@@ -37,6 +61,9 @@ const AppRoute = () => {
       <h2>Data from API:</h2>
       <A class='underline' href='/count'>
         Go to counter
+      </A>
+      <A class='underline' href='/protected'>
+        Go to protected
       </A>
       <ul>
         <For each={data()}>{data => <li>{data.title}</li>}</For>
@@ -83,6 +110,11 @@ const App = () => {
       <Routes>
         <Route path='/' element={AppRoute} data={fetchRouteData}></Route>
         <Route path='/count' element={Counter}></Route>
+        <Route
+          path='/protected'
+          element={Protected}
+          data={protectedRouteData}
+        ></Route>
       </Routes>
     </Suspense>
   );

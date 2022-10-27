@@ -5,7 +5,7 @@ import { appRouter } from "server/router";
 const handler: APIRoute = ({ request }) =>
   fetchRequestHandler({
     req: request,
-    endpoint: "/api",
+    endpoint: "/api/trpc",
     router: appRouter,
     createContext: () => ({}),
     batching: { enabled: true }

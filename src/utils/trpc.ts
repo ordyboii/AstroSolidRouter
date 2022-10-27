@@ -13,5 +13,5 @@ const getBaseUrl = () => {
 };
 
 export const client = createTRPCProxyClient<AppRouter>({
-  links: [httpBatchLink({ url: `${getBaseUrl()}/api` })]
+  links: [httpBatchLink({ url: `${getBaseUrl()}/api/trpc` })]
 });
