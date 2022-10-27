@@ -8,8 +8,11 @@ import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/edge";
 
 // https://astro.build/config
+import react from "@astrojs/react";
+
+// https://astro.build/config
 export default defineConfig({
-  integrations: [solidJs(), tailwind()],
+  integrations: [tailwind(), react()],
   output: "server",
   adapter: vercel()
 });
