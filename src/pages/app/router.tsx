@@ -7,7 +7,7 @@ import {
   useRouteData
 } from "@solidjs/router";
 import { createResource, createSignal, For, Show, Suspense } from "solid-js";
-import { client } from "../../utils/trpc";
+import { client } from "utils/trpc";
 
 const [block, setBlock] = createSignal(false);
 const delay = () => new Promise(resolve => setTimeout(resolve, 1000));

@@ -1,7 +1,11 @@
 ---
+import Base from "layouts/base.astro";
 import Router from "./router";
 ---
 
-<h1>{Astro.url.pathname}</h1>
-<a href='/'>Return home</a>
-<Router client:load ssrRoute={Astro.url.pathname} />
+<Base>
+  <p>Content</p>
+  <h1>{Astro.url.pathname}</h1>
+  <a class='underline' href='/'>Return home</a>
+  <Router client:load ssrRoute={Astro.url.pathname} />
+</Base>

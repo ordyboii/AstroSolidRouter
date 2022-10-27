@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { appRouter } from "../../server/init";
+import { appRouter } from "server/router";
 
 const handler: APIRoute = ({ request }) =>
   fetchRequestHandler({

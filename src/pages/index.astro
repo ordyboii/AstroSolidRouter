@@ -1,18 +1,11 @@
 ---
-import { client } from "../utils/trpc";
+import Base from "layouts/base.astro";
+import { client } from "utils/trpc";
+
 const greeting = await client.example.query();
 ---
 
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='viewport' content='width=device-width' />
-    <meta name='generator' content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro, {greeting}</h1>
-    <a href='/app'>Link</a>
-  </body>
-</html>
+<Base>
+  <h1>Astro, {greeting}</h1>
+  <a class='underline' href='/app'>Link</a>
+</Base>
