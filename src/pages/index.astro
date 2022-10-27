@@ -1,6 +1,5 @@
 ---
 import Base from "layouts/base.astro";
-import Test from "layouts/test";
 import { client } from "utils/trpc";
 
 const greeting = await client.example.query();
@@ -9,5 +8,4 @@ const greeting = await client.example.query();
 <Base>
   <h1>Astro, {greeting}</h1>
   <a class='underline' href='/app'>Link</a>
-  <Test />
 </Base>

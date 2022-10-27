@@ -5,14 +5,11 @@ import solidJs from "@astrojs/solid-js";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
-import vercel from "@astrojs/vercel/edge";
-
-// https://astro.build/config
-import react from "@astrojs/react";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react()],
+  integrations: [solidJs(), tailwind()],
   output: "server",
   adapter: vercel()
 });
